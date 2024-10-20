@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #acc3c2;
+    color: #333;
+}
+
+header {
+    background-color: #fff;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    padding: 0 50px;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #004666;
+    font-weight: bold;
+}
+
+nav ul li i {
+    font-size: 24px;
+    color: #004666;
+    cursor: pointer; /* Ajouté pour indiquer que l'icône est cliquable */
+}
+
+.menu-dropdown {
+    width: 200px;
+    display: none; /* Masquer le menu par défaut */
+    background-color: #fff;
+    position: absolute; /* Positionner le menu en dehors du flux normal */
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    z-index: 1000; /* Assurez-vous qu'il est au-dessus d'autres éléments */
+}
+
+.menu-dropdown ul {
+    list-style: none;
+    padding: 10px 0;
+}
+
+.menu-dropdown ul li {
+    padding: 8px 20px; /* Espacement autour des éléments du menu */
+}
+
+.menu-dropdown ul li a {
+    color: #004666; /* Couleur du texte */
+    text-decoration: none;
+}
+
+.menu-dropdown ul li:hover {
+    background-color: #f0f0f0; /* Changement de couleur au survol */
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.content {
+    display: flex;
+    background-color: #e0efef;
+    border-radius: 20px;
+    overflow: hidden;
+    max-width: 1200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    gap: 30px;
+}
+
+.card {
+    padding: 30px;
+    width: 50%;
+    text-align: left;
+}
+
+.card h2 {
+    color: #004666;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.card p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.card ul {
+    list-style: none;
+}
+
+.card ul li {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.card ul li:before {
+    content: '●';
+    margin-right: 10px;
+    color: #333;
+}
+
+.image-section {
+    width: 50%;
+}
+
+.image-section img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+}

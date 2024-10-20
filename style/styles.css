@@ -1,0 +1,114 @@
+/* Réinitialiser le style par défaut */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Style général du body */
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f4;
+}
+
+/* Conteneur principal */
+.container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+}
+
+/* Style du titre */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Formulaire */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Conteneur pour regrouper deux inputs sur une ligne */
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+label {
+  width: 100%;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+
+input, select {
+  width: 48%; 
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+
+input[type="date"], input[type="text"],input[type="email"],input[type="password"], select {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+
+.full-width {
+  width: 100%;
+}
+
+
+.error {
+  color: red;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+
+button[type="submit"] {
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #2980b9;
+}
+a#input {
+  display: inline-block;
+  background-color: #004666; /* Couleur de fond bleu */
+  color: white; /* Couleur du texte en blanc */
+  padding: 10px 20px; /* Espacement interne */
+  border-radius: 5px; /* Coins arrondis */
+  text-decoration: none; /* Retirer la décoration de lien */
+  font-family: 'Open Sans', sans-serif; /* Police de caractère */
+  font-size: 16px; /* Taille du texte */
+  margin: 10px 0; /* Espacement entre les éléments */
+  transition: background-color 0.3s ease; /* Animation lors du hover */
+}
+
+a#input:hover {
+  background-color: #007bff; /* Couleur de fond au survol */
+  text-decoration: underline; /* Soulignement au survol */
+}
