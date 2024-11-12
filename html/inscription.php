@@ -27,14 +27,16 @@ require('../database/inscriptionAction.php');
                 <input type="text" placeholder="Prénom(s)" name="prenom">
                 <input type="text" placeholder="Age" name="age">
                 <input type="text" placeholder="Adresse mail Esatic" name="email">
-                <input type="text" placeholder="Passion" name="passion">
+                <input type="password" placeholder="Mot de passe" name="mdp">
+               
             </div>
             <div class="right-column">
                 <input type="text" placeholder="Matricule ESATIC" name="matricule">
                 <input type="text" placeholder="N°IT" name="it">
-                <input type="text" placeholder="Profession" name="profession">
+                <input type="text" placeholder="Proffession" name="profession">
                 <input type="text" placeholder="Expérience professionnel" name="experience">
-                <input type="password" placeholder="Mot de passe" name="mdp">
+                <input type="text" placeholder="Passion" name="passion">
+                
             </div>
             <div class="submit-btn">
               

@@ -25,7 +25,7 @@ body {
   width: 100%;
 }
 
-/* Style du titre */
+
 h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -39,7 +39,7 @@ form {
   align-items: center;
 }
 
-/* Conteneur pour regrouper deux inputs sur une ligne */
+
 .form-row {
   display: flex;
   justify-content: space-between;
@@ -97,18 +97,18 @@ button[type="submit"]:hover {
 }
 a#input {
   display: inline-block;
-  background-color: #004666; /* Couleur de fond bleu */
-  color: white; /* Couleur du texte en blanc */
-  padding: 10px 20px; /* Espacement interne */
-  border-radius: 5px; /* Coins arrondis */
-  text-decoration: none; /* Retirer la décoration de lien */
-  font-family: 'Open Sans', sans-serif; /* Police de caractère */
-  font-size: 16px; /* Taille du texte */
-  margin: 10px 0; /* Espacement entre les éléments */
-  transition: background-color 0.3s ease; /* Animation lors du hover */
+  background-color: #004666; 
+  color: white; 
+  padding: 10px 20px; 
+  border-radius: 5px; 
+  text-decoration: none; 
+  font-family: 'Open Sans', sans-serif; 
+  font-size: 16px; 
+  margin: 10px 0; 
+  transition: background-color 0.3s ease; 
 }
 
 a#input:hover {
-  background-color: #007bff; /* Couleur de fond au survol */
-  text-decoration: underline; /* Soulignement au survol */
+  background-color: #007bff; 
+  text-decoration: underline; 
 }

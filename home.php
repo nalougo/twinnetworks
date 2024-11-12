@@ -1,6 +1,9 @@
 <?php
-require('./database/connexionAction.php');
-
+session_start();
+ require('./database/security.php');
+require('./database/AfichierPublicationAction.php');
+require('./database/AfficherToustoryAction.php');
+require('./database/ajouterAmiAction.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,37 +11,42 @@ require('./database/connexionAction.php');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mySocial - Responsive Social Media Website Using HTML, CSS, & JavaScript</title>
-    <!-- IconScout CDN -->
+    <title>Le réseautage des twiners</title>
+    
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
-    <!-- Stylesheet -->
+    
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <nav>
-        <div class="container">
-            <h2 class="logo">
-                mySocial
-            </h2>
-            <div class="search-bar">
-                <i class="uil uil-search"></i>
-                <input type="search" placeholder="Search for creators, inspirations, and projects">
-            </div>
-            <div class="create">
-               <label class="btn btn-primary" for="create-post"> <a href="./html/modifierProfil.php">Modifier</a></label>
-                <div class="profile-photo">
-                    <img src="./html/image/<?=$_SESSION['img'];?>" alt="">
-                </div>
-            </div>
+<nav>
+    <div class="container">
+        <h2 class="logo">
+            twiner social
+        </h2>
+        <div class="search-bar">
+            <i class="uil uil-search"></i>
+            <input type="search" placeholder="Recherche">
         </div>
-    </nav>
+        <div class="create">
+            <label class="btn btn-primary" for="create-post"> 
+                <a href="./html/modifierProfil.php">Modifier</a>
+            </label>
+            <div class="profile-photo">
+                <img src="./html/image/<?=$_SESSION['img'];?>" alt="">
+            </div>
+            <!-- Ajout du lien de déconnexion -->
+            <a href="./database/logout.php" class="btn btn-secondary">Déconnexion</a>
+        </div>
+    </div>
+</nav>
 
-    <!-------------------------------- MAIN ----------------------------------->
+
+    <!-------------------------------- principale ----------------------------------->
     <main>
         <div class="container">
-            <!----------------- LEFT -------------------->
+            <!----------------- gauche -------------------->
             <div class="left">
-                <a class="profile">
+                <a href="./html/page3.php?id=<?=$_SESSION['id'];?>">
                     <div class="profile-photo">
                     <img src="./html/image/<?=$_SESSION['img'];?>">
                     </div>
@@ -50,20 +58,20 @@ require('./database/connexionAction.php');
                     </div>
                 </a>
 
-                <!----------------- SIDEBAR -------------------->
+                <!----------------- Table de navigation-------------------->
                 <div class="sidebar">
                     <a class="menu-item active">
                         <span><i class="uil uil-home"></i></span>
                         <h3>Home</h3>   
                     </a>
-                    <a class="menu-item">
+                    <a class="menu-item" href="./html/ajouterAmi.php">
                         <span><i class="uil uil-compass"></i></span>
                         <h3>Explore</h3>
                     </a>
                     <a class="menu-item"  id="notifications">
                         <span><i class="uil uil-bell"><small class="notification-count">9+</small></i></span>
                         <h3>Notification</h3>
-                        <!--------------- NOTIFICATION POPUP --------------->
+                        <!--------------- NOTIFICATION  --------------->
                         <div class="notifications-popup">
                             <div>
                                 <div class="profile-photo">
@@ -120,110 +128,101 @@ require('./database/connexionAction.php');
                                 </div>
                             </div>
                         </div>
-                        <!--------------- END NOTIFICATION POPUP --------------->
+                        <!--------------- Fin de notification --------------->
                     </a>
                     <a class="menu-item" id="messages-notifications">
                         <span><i class="uil uil-envelope-alt"><small class="notification-count">6</small></i></span>
                         <h3>Messages</h3>
                     </a>
-                    <a class="menu-item">
-                        <span><i class="uil uil-bookmark"></i></span>
-                        <h3>Bookmarks</h3>
-                    </a>
-                    <a class="menu-item">
-                        <span><i class="uil uil-chart-line"></i></span>
-                        <h3>Analytics</h3>
-                    </a>
                     <a class="menu-item" id="theme">
                         <span><i class="uil uil-palette"></i></span>
                         <h3>Theme</h3>
                     </a>
-                    <a class="menu-item">
-                        <span><i class="uil uil-setting"></i></span>
-                        <h3>Setting</h3>
-                    </a>
                 </div>
-                <!----------------- END OF SIDEBAR -------------------->
-                <label class="btn btn-primary" for="create-post">Create Post</label>
+                <!----------------- Fin de la bar -------------------->
+                <label class="btn btn-primary" for="create-post"><a href="./html/publie.php">Publier</a></label>
             </div>
 
-            <!----------------- MIDDLE -------------------->
+            <!----------------- Milieu -------------------->
             <div class="middle">
-                 <!----------------- STORIES -------------------->
+                 <!----------------- Les stories -------------------->
                 <div class="stories">
-                    <div class="story">
-                        <div class="profile-photo">
-                            <img src="./images/profile-8.jpg">
+                    <?php foreach ($story  as $user => $value) :?>
+
+                       <?php
+                        if($_SESSION['id']==$value['id']){
+                            ?>
+                        <div class="story">
+                          <img src="./html/story/<?=$value['img'];?>">
+                            <div class="profile-photo">
+                                <img src="./html/image/<?=$_SESSION['img'];?>">
+                            </div>
+                            <p class="name">Your Story</p>
                         </div>
-                        <p class="name">Your Story</p>
-                    </div>
-                    <div class="story">
-                        <div class="profile-photo">
-                            <img src="./images/profile-9.jpg">
-                        </div>
-                        <p class="name">Lila James</p>
-                    </div>
-                    <div class="story">
-                        <div class="profile-photo">
-                            <img src="./images/profile-10.jpg">
-                        </div>
-                        <p class="name">Winnie Haley</p>
-                    </div>
-                    <div class="story">
-                        <div class="profile-photo">
-                            <img src="./images/profile-11.jpg">
-                        </div>
-                        <p class="name">Daniel Bale</p>
-                    </div>
-                    <div class="story">
-                        <div class="profile-photo">
-                            <img src="./images/profile-12.jpg">
-                        </div>
-                        <p class="name">Jane Doe</p>
-                    </div>
-                    <div class="story">
-                        <div class="profile-photo">
-                            <img src="./images/profile-13.jpg">
-                        </div>
-                        <p class="name">Tina White</p>
-                    </div>
+                            <?php
+
+                        }elseif($_SESSION['id']!=$value['id']){
+                            $autre = $bdd->prepare('SELECT * FROM userinfo WHERE id=?');
+                            $autre->execute(array($value['id_auteur']));
+                            $Saphoto = $autre->fetch();
+
+                            ?>
+                                <div class="story">
+                                       <img src="./html/story/<?=$value['img'];?>">
+                                        <div class="profile-photo">
+                                            <img src="./html/image/<?=$Saphoto['img'];?>">
+                                        </div>
+                                        <p class="name"><?=$value['nom'];?></p>
+                                </div>
+                            <?php
+
+                        }
+                        
+                        ?>
+                    <?php endforeach;?>
                 </div>
-                <!----------------- END OF STORIES -------------------->
+                <!----------------- fin de stories -------------------->
                 <form action="" class="create-post">
                     <div class="profile-photo">
-                        <img src="./images/profile-1.jpg">
+                    <img src="./html/image/<?=$_SESSION['img'];?>" alt="">
                     </div>
-                    <input type="text" placeholder="What's on your mind, Diana ?" id="create-post">
-                    <input type="submit" value="Post" class="btn btn-primary">
+                    <input type="text" placeholder="Quelle est votre pensée?" id="Publier">
+                    <a href="./html/story.php"><input  value="story" class="btn btn-primary"></a>
                 </form>
-                <!----------------- FEEDS -------------------->
+                
                 <div class="feeds">
-                    <!----------------- FEED 1 -------------------->
                     <div class="feed">
+                    <!-- On affiche tout les publication  -->
+                    <?php foreach ($resultat  as $user => $value) :?>
+                      <?php
+                        if($_SESSION['id'] == $value['auteur']){
+
+                          ?>
                         <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-13.jpg">
+                                <div class="user">
+                                    <div class="profile-photo">
+                                        <img src="./html/image/<?=$_SESSION['img'];?>">
+                                    </div>
+                                    <div class="info">
+                                         <h3><a href="./html/page3.php?id=<?=$_SESSION['id']?>"><?=$_SESSION['nom'];?></a></h3>
+                                        <small>publié le <?=$value['date'];?> à <?=$value['heure'];?></small>
+                                        <p><?=$value['titre'];?></p>
+                                         <p><?=$value['description'];?></p>
+                                        
+                                    </div>
                                 </div>
-                                <div class="info">
-                                    <h3>Lana Rose</h3>
-                                    <small>Dubai, 15 Minutes Ago</small>
-                                </div>
+                                <span class="edit">
+                                    <i class="uil uil-ellipsis-h"></i>
+                                </span>
                             </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="./images/feed-1.jpg">
-                        </div>
-
-                        <div class="action-buttons">
+                            <div class="photo">
+                                <img src="./html/publie/<?= $value['img'];?>">
+                            </div>
+                            <div class="action-buttons">
                             <div class="interaction-buttons">
                                 <span><i class="uil uil-heart"></i></span>
                                 <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
+                                <span  ><i class="uil uil-share-alt" onclick="shareContent()"></i></span>
                             </div>
                             <div class="bookmark">
                                 <span><i class="uil uil-bookmark-full"></i></span>
@@ -245,235 +244,39 @@ require('./database/connexionAction.php');
                         <div class="comments text-muted">
                             View all 277 comments
                         </div>
-                    </div>
-                    <!----------------- END OF FEED 1 -------------------->
+                          <?php
+                        }elseif($_SESSION['id'] !=$value['auteur']){
+                           $trouvele = $bdd->prepare('SELECT * FROM userinfo WHERE id=?');
+                           $trouvele->execute(array($value['auteur']));
+                           $Tresbon = $trouvele->fetch();
+                           ?>
 
-                    <!----------------- FEED 2 -------------------->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-10.jpg">
+                            <div class="head">
+                                <div class="user">
+                                    <div class="profile-photo">
+                                        <img src="./html/image/<?=$Tresbon['img'];?>">
+                                    </div>
+                                    <div class="info">
+                                         <h3><a href="./html/page3.php?id=<?=$Tresbon['id']?>"><?=$Tresbon['nom'];?></a></h3>
+                                        <small>publié le <?=$value['date'];?> à <?=$value['heure'];?></small>
+                                        <p><?=$value['titre'];?></p>
+                                         <p><?=$value['description'];?></p>
+                                        
+                                    </div>
                                 </div>
-                                <div class="info">
-                                    <h3>Clara Dwayne</h3>
-                                    <small>Miami, 2 Hours Ago</small>
-                                </div>
+                                <span class="edit">
+                                    <i class="uil uil-ellipsis-h"></i>
+                                </span>
                             </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="./images/feed-3.jpg">
-                        </div>
-
-                        <div class="action-buttons">
+                            <div class="photo">
+                                <img src="./html/publie/<?= $value['img'];?>">
+                                
+                            </div>
+                            <div class="action-buttons">
                             <div class="interaction-buttons">
                                 <span><i class="uil uil-heart"></i></span>
                                 <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-11.jpg"></span>
-                            <span><img src="./images/profile-5.jpg"></span>
-                            <span><img src="./images/profile-16.jpg"></span>
-                            <p>Liked by <b>Diana Rose</b> and <b>2, 323 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Clara Dwayne</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, fugiat? Ipsam voluptatibus beatae facere eos harum voluptas distinctio, officia, facilis sed quisquam esse, assumenda minima ut. Excepturi sit quis reiciendis! 
-                            <span class="harsh-tag">#lifestyle</span></p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View all 100 comments
-                        </div>
-                    </div>
-                    <!----------------- END OF FEED 2 -------------------->
-
-                    <!----------------- FEED 3 -------------------->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-4.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Rosalinda Clark</h3>
-                                    <small>New York, 50 Minutes Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="./images/feed-4.jpg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-12.jpg"></span>
-                            <span><img src="./images/profile-13.jpg"></span>
-                            <span><img src="./images/profile-14.jpg"></span>
-                            <p>Liked by <b>Clara Dwayne</b> and <b>2, 323 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Rosalinda Clark</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo ullam, quam voluptatibus natus ex corporis ea atque quisquam, necessitatibus, cumque eligendi aliquam nulla soluta hic. Obcaecati, tempore dignissimos! Esse cupiditate laborum ullam, quae necessitatibus, officiis, quaerat aspernatur illo voluptatum repellat perferendis voluptatem similique. Assumenda nostrum, eius sit laborum nesciunt deserunt!
-                            <span class="harsh-tag">#lifestyle</span></p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View all 50 comments
-                        </div>
-                    </div>
-                    <!----------------- END OF FEED 3 -------------------->
-
-                    <!----------------- FEED 4 -------------------->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-5.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Alexandria Riana</h3>
-                                    <small>Dubai, 1 Hour Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="./images/feed-5.jpg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-10.jpg"></span>
-                            <span><img src="./images/profile-4.jpg"></span>
-                            <span><img src="./images/profile-15.jpg"></span>
-                            <p>Liked by <b>Lana Rose</b> and <b>5, 323 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Alexandria Riana</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi architecto sunt itaque, in, enim non doloremque velit unde nihil vitae impedit dolorum, distinctio ab deleniti! 
-                            <span class="harsh-tag">#lifestyle</span></p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View all 540 comments
-                        </div>
-                    </div>
-                    <!----------------- END OF FEED 4 -------------------->
-
-                    <!----------------- FEED 5 -------------------->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-7.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Keylie Hadid</h3>
-                                    <small>Dubai, 3 Hours Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="./images/feed-7.jpg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-10.jpg"></span>
-                            <span><img src="./images/profile-4.jpg"></span>
-                            <span><img src="./images/profile-15.jpg"></span>
-                            <p>Liked by <b>Riana Rose</b> and <b>1, 226 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Keylie Hadid</b> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem obcaecati nisi veritatis quisquam eius accusantium rem quo repellat facilis neque.
-                            <span class="harsh-tag">#lifestyle</span></p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View all 199 comments
-                        </div>
-                    </div>
-                    <!----------------- END OF FEED 5 -------------------->
-
-                    <!----------------- FEED 6 -------------------->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-15.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Benjamin Dwayne</h3>
-                                    <small>New York, 5 Hours Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="./images/feed-2.jpg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
+                                <span  ><i class="uil uil-share-alt" onclick="shareContent()"></i></span>
                             </div>
                             <div class="bookmark">
                                 <span><i class="uil uil-bookmark-full"></i></span>
@@ -488,79 +291,53 @@ require('./database/connexionAction.php');
                         </div>
 
                         <div class="caption">
-                            <p><b>Benjamin Dwayne</b> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum, consequuntur!
+                            <p><b>Lana Rose</b> Lorem ipsum dolor sit quisquam eius. 
                             <span class="harsh-tag">#lifestyle</span></p>
                         </div>
 
                         <div class="comments text-muted">
                             View all 277 comments
                         </div>
-                    </div>
-                    <!----------------- END OF FEED 6 -------------------->
+                           <?php
+                        }
+                        ?>
+                            
 
-                    <!----------------- FEED 7 -------------------->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-3.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Indiana Ellison</h3>
-                                    <small>Qatar, 8 Hours Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
+                    <?php endforeach;?>  
 
-                        <div class="photo">
-                            <img src="./images/feed-6.jpg">
-                        </div>
+                         <script>
 
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-10.jpg"></span>
-                            <span><img src="./images/profile-4.jpg"></span>
-                            <span><img src="./images/profile-15.jpg"></span>
-                            <p>Liked by <b>Benjamin Dwayne</b> and <b>2, 323 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Indiana Ellison</b> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur itaque quasi autem pariatur ducimus eligendi, qui odio molestias at molestiae. 
-                            <span class="harsh-tag">#lifestyle</span></p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View all 277 comments
-                        </div>
-                    </div>
-                    <!----------------- END OF FEED 7 -------------------->
+                            function shareContent() {
+                                if (navigator.share) {
+                                navigator.share({
+                                    title: 'Titre du contenu',
+                                    text: 'Regarde ce contenu intéressant !',
+                                    url: 'https://tonsite.com'
+                                }).then(() => {
+                                    console.log('Le contenu a été partagé avec succès.');
+                                }).catch((error) => {
+                                    console.error('Erreur lors du partage', error);
+                                });
+                                } else {
+                                alert('Le partage n\'est pas supporté sur ce navigateur.');
+                                }
+                            }
+                         </script>
+                    </div>            
                 </div>
-                <!----------------- END OF FEEDS -------------------->
+                <!----------------- Fin des publication -------------------->
             </div>
-             <!----------------- END OF MIDDLE -------------------->
+             <!----------------- Fin du milieu -------------------->
 
-            <!----------------- RIGHT -------------------->
+            <!----------------- Coté droite -------------------->
             <div class="right">
-                <!------- MESSAGES ------->
+                <!------- Message ------->
                 <div class="messages">
                     <div class="heading">
                         <h4>Messages</h4>
                         <i class="uil uil-edit"></i>
                     </div>
-                    <!------- SEARCH BAR ------->
+                    <!------- Recherche ------->
                     <div class="search-bar">
                         <i class="uil uil-search"></i>
                         <input type="search" placeholder="Search messages" id="message-search">
@@ -572,130 +349,69 @@ require('./database/connexionAction.php');
                         <h6 class="message-requests">Requests (7)</h6>
                     </div>
                     <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="./images/profile-17.jpg">
-                        </div>
-                        <div class="message-body">
-                            <h5>Edem Quist</h5>
-                            <p class="text-muted">Just woke up bruh</p>
-                        </div>
-                    </div>
-                    <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="./images/profile-6.jpg">
-                        </div>
-                        <div class="message-body">
-                            <h5>Daniella Jackson</h5>
-                            <p class="text-bold">2 new messages</p>
-                        </div>
-                    </div>
-                    <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="./images/profile-8.jpg">
-                            <div class="active"></div>
-                        </div>
-                        <div class="message-body">
-                            <h5>Chantel Msiza</h5>
-                            <p class="text-muted">lol u right</p>
-                        </div>
-                    </div>
-                    <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="./images/profile-10.jpg">
-                        </div>
-                        <div class="message-body">
-                            <h5>Juliet Makarey</h5>
-                            <p class="text-muted">Birtday Tomorrow</p>
-                        </div>
-                    </div>
-                    <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="./images/profile-3.jpg">
-                            <div class="active"></div>
-                        </div>
-                        <div class="message-body">
-                            <h5>Keylie Hadid</h5>
-                            <p class="text-bold">5 new messages</p>
-                        </div>
-                    </div>
-                    <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="./images/profile-15.jpg">
-                        </div>
-                        <div class="message-body">
-                            <h5>Benjamin Dwayne</h5>
-                            <p class="text-muted">haha got that!</p>
-                        </div>
-                    </div>
-                </div>
-                <!------- END OF MESSAGES ------->
+                    <?php
+                        require('./database/base.php');
+                        
+                        $messageTout = $bdd->query('SELECT * FROM userinfo');
+                        while($message=$messageTout->fetch()){
+                            if($message['id'] != $_SESSION['id']){
 
-                <!------- FRIEND REQUEST ------->
+                                ?>
+                                <div class="message">
+                                    <div class="profile-photo">
+                                    <img src="./html/image/<?=$message['img'];?>">
+                                    </div>
+                                    <div class="message-body">
+                                    <a href="./html/message.php?id=<?=$message['id'];?>"><h4><?=$message['nom'];?></h4></a>
+                                        <p class="text-muted">il y'a 1 min</p>
+                                    </div>
+                                </div>
+
+                                <?php
+                            }
+                        }
+                    ?>
+                    
+                    
+                </div>
+                <!------- fin de message ------->
+
+                <!------- les invitation------->
                 <div class="friend-requests">
-                    <h4>Requests</h4>
-                    <div class="request">
-                        <div class="info">
-                            <div class="profile-photo">
-                                <img src="./images/profile-20.jpg">
+                    <h4>Invitation</h4>
+                    <?php
+                    if(isset($Ajouter)){
+                        require('./database/ajouterAmiAction.php');
+                        while($conuser = $ami->fetch()){
+                            if( $_SESSION['id']!=$conuser['id'] ){
+                                ?>
+                        <div class="request">
+                            <div class="info">
+                                <div class="profile-photo">
+                                <img src="./html/image/<?=$conuser['img'];?>">
+                                </div>
+                                <div>
+                                    <h5><?=$conuser['nom'];?></h5>
+                                    <p class="text-muted"><?=$conuser['prenom'];?></p>
+                                </div>
                             </div>
-                            <div>
-                                <h5>Hajia Bintu</h5>
-                                <p class="text-muted">8 mutual friends</p>
-                            </div>
+                            <div class="action">
+                                <button class="btn btn-primary">
+                                    Accept
+                                </button>
+                                <button class="btn">
+                                    Decline
+                                </button>
                         </div>
-                        <div class="action">
-                            <button class="btn btn-primary">
-                                Accept
-                            </button>
-                            <button class="btn">
-                                Decline
-                            </button>
-                        </div>
-                    </div>
-                    <div class="request">
-                        <div class="info">
-                            <div class="profile-photo">
-                                <img src="./images/profile-18.jpg">
-                            </div>
-                            <div>
-                                <h5>Edelson Mandela</h5>
-                                <p class="text-muted">2 mutual friends</p>
-                            </div>
-                        </div>
-                        <div class="action">
-                            <button class="btn btn-primary">
-                                Accept
-                            </button>
-                            <button class="btn">
-                                Decline
-                            </button>
-                        </div>
-                    </div>
-                    <div class="request">
-                        <div class="info">
-                            <div class="profile-photo">
-                                <img src="./images/profile-17.jpg">
-                            </div>
-                            <div>
-                                <h5>Megan Baldwin</h5>
-                                <p class="text-muted">5 mutual friends</p>
-                            </div>
-                        </div>
-                        <div class="action">
-                            <button class="btn btn-primary">
-                                Accept
-                            </button>
-                            <button class="btn">
-                                Decline
-                            </button>
-                        </div>
-                    </div>
+
+                                <?php
+
+                            }
+                        }
+                    }
+                    ?>
+                    
+                   
                 </div>
             </div>
             <!----------------- END OF RIGHT -------------------->
@@ -756,7 +472,24 @@ require('./database/connexionAction.php');
             </div>
         </div>
     </div>
+  <!-- Rendre la page dynamique -->
 
+  <script>
+        function loadPageContent() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "home.php", true);
+            xhr.onload = function() {
+                if (this.status === 200) {
+                    
+                    document.getElementById("main-content").innerHTML = this.responseText;
+                }
+            }
+            xhr.send();
+        }
+        setInterval(loadPageContent, 10000);  
+         //loadPageContent();
+    </script>
     <script src="./index.js"></script>
+
 </body>
 </html>

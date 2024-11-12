@@ -17,13 +17,17 @@ if (isset($_POST['valider'])) {
             $userInfos = $checkIfUserExists->fetch();
      
             if (password_verify($user_password, $userInfos['mdp'])) {
+                var_dump($_SESSION);
                 // Démarrer une session utilisateur
                 $_SESSION['auth']=true;
                 $_SESSION['id'] = $userInfos['id'];
-                $_SESSION['userNom'] = $userInfos['nom'];
-                $_SESSION['userPrenom'] = $userInfos['prenom'];
-                $_SESSION['userEmail'] = $userInfos['email'];
-                $_SESSION['img'] = $userInfos['img']; // Stocker l'image dans la session
+                $_SESSION['nom'] = $userInfos['nom'];
+                $_SESSION['prenom'] = $userInfos['prenom'];
+                $_SESSION['email'] = $userInfos['email'];
+                $_SESSION['img'] = $userInfos['img']; 
+                $_SESSION['it'] = $userInfos['it'];
+                $_SESSION['profession'] = $userInfos['profession'];
+                $_SESSION['experience'] = $userInfos['experience'];
                 
                 // Redirection vers la page d'accueil
                 header('Location: ../home.php');

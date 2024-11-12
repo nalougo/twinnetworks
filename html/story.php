@@ -1,7 +1,4 @@
-<?php 
-require ('../database/publieAction.php');
-?>
-
+<?php require('../database/storyAction.php');?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -21,7 +18,7 @@ require ('../database/publieAction.php');
     <div class="form-container">
         <!-- Formulaire pour publier une photo -->
         <div class="form-box">
-            <h2>Publier une photo</h2>
+            <h2>Publier une story</h2>
             <?php
               if(isset( $error)){
                 echo '<p class="error">'.$error.'</p>';
@@ -39,41 +36,10 @@ require ('../database/publieAction.php');
                     <label for="title">Titre</label>
                     <input type="text" id="title" placeholder="Entrez le titre" name="titre">
                 </div>
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea id="description" rows="3" placeholder="Entrez la description" name="description"></textarea>
-                </div>
+                
                 <button type="submit" class="btn" name="valider">Publier</button>
             </form>
         </div>
-
-        <!-- Formulaire pour publier une vidéo -->
-        <div class="form-box">
-            <h2>Publier une vidéo</h2>
-            <?php 
-              if(isset($error2)){
-                echo '<p class="error">'.$error2.'</p>';
-              }elseif(isset( $succes)){
-                echo '<p class="success">'.$succes.'</p>';
-              }
-            ?>
-            <form id="videoForm" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="videoUpload">Télécharger une vidéo</label>
-                    <input type="file" id="videoUpload" name="video" accept="video/*">
-                </div>
-                <div class="form-group">
-                    <label for="title">Titre</label>
-                    <input type="text" id="title" placeholder="Entrez le titre" name="titre">
-                </div>
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea id="description" rows="3" placeholder="Entrez la description" name="description"></textarea>
-                </div>
-                <button type="submit" class="btn" name="valide">Publier</button>
-            </form>
-        </div>
-    </div>
 
     <script>
         // Script pour prévisualiser l'image

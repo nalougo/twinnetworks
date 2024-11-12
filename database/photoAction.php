@@ -1,7 +1,7 @@
 <?php
-require('inscriptionAction.php');
+require('base.php');
+session_start();
 
-$errorMssg = '';
 
 if (isset($_POST['valider'])) {
     // Vérification que le fichier a bien été téléchargé
